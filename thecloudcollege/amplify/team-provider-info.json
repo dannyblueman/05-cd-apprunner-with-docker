@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-thecloudcollege-dev-151439-authRole",
+      "UnauthRoleArn": "arn:aws:iam::244530008913:role/amplify-thecloudcollege-dev-151439-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::244530008913:role/amplify-thecloudcollege-dev-151439-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-thecloudcollege-dev-151439-deployment",
+      "UnauthRoleName": "amplify-thecloudcollege-dev-151439-unauthRole",
+      "StackName": "amplify-thecloudcollege-dev-151439",
+      "StackId": "arn:aws:cloudformation:eu-west-1:244530008913:stack/amplify-thecloudcollege-dev-151439/b71f29f0-1ecb-11ec-831d-022f5a34f22d",
+      "AmplifyAppId": "d3jyrk02deell8"
+    },
+    "categories": {
+      "auth": {
+        "thecloudcollegea69810b7": {}
+      }
+    }
+  }
+}
