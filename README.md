@@ -82,7 +82,11 @@ Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjo
 mvn spring-boot:run
 ```
 
-## Amazon ECR
+## Lag og last opp Container Image til Amazon ECR fra Cloud9
+
+* Start Cloud9 miljøet ditt 
+* Åpne en Terminal 
+* Lag en klone av GitHub repeo du lagde på egen maskin i Cloud9 med ```git clone ...``` (du må bruke https URL).   
 
 I forrige øving lagde vi Docker images og lastet de opp til Docker Hub. Nå skal vi gjøre det samme, men laste opp Container image til 
 AWS ECR slik at vi kan bruke AWS Apprunner til å kjøre en container. 
