@@ -51,17 +51,17 @@ lag følgende fil under katalogen ```.github/workflows/``` i ditt repository. NB
 med ditt eget brukernavn
 
 ```yaml
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Publish Docker image
 
 on:
-  release:
-    types: [published]
-
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -69,21 +69,25 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-    
+
       - name: Build and push Docker image
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
-          docker build . -t glenn
-          docker tag glenn:latest 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn
-          docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn
+          aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 244530008913.dkr.ecr.eu-west-1.amazonaws.com
+          docker build . -t hello
+          docker tag hello:latest 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest
+          docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest
 ```
 
-NB. Dere trenger ikke publisere til GitHub Packages!
-Følg denne guiden <'https://docs.github.com/en/actions/publishing-packages/publishing-docker-images'>
+# Konfigurer AWS Apprunner
 
-I denne oppgaven skal vi sørge for at
+Nå skal vi konfigurere AWS Apprunner igjen, men bruke "ECR" som kilde og ikke "Source code repository som sist"
 
-* Arbeidsflyten skal bare bygge Docker container image på hver push
-* Ved push til master skal også applikasjonen deployes til AWS Apprunner
+![Alt text](img/5.png  "a title")
 
-# Lek med Feature toggles 
+* Velg "Amazon ECR" som "Repository type"
+* Image name er for eksempel ```244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest```
+* Velg "automatic deployments"
+* Velg Use existing service role eller "Create new service role" hvis ingen eksisterer
