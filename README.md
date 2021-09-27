@@ -61,7 +61,8 @@ mvn spring-boot:run
 
 ## Dockerize it!
 
-Bruker gjerne denne dockerfilen som eksempel 
+Lag en Dockerfile, her er et eksempel. Ta en kikke på https://github.com/PGR301-2021/04-cd-part-2 hvis du ikke husker helt 
+hvor denne skal osv. 
 
 ```
 FROM maven:3.6-jdk-11 as builder
@@ -75,7 +76,7 @@ COPY --from=builder /app/target/*.jar /app/application.jar
 ENTRYPOINT ["java","-jar","/app/application.jar"]
 ```
 
-Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen kjører som den skal med 
+Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen starter og lytter på localhost:8080 når du kjører
 
 ```shell
 mvn spring-boot:run
