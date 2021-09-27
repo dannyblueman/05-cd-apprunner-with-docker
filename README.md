@@ -36,12 +36,10 @@ Når du har passordet, går du til Cloud9 url for din bruker.
 
 I denne øvingen trenger vi også IAM aksessnøkler for din bruker. Disse har to attributter
 
-* Acess Key ID - en identifikator for en nøkkel. Ikke hemmelig. Kan deles offentlig
-* Secret Access Key - En hemmelighet som ikke må deles.
+* ```Acess Key ID``` - en identifikator for en nøkkel. Denne finner du i klartekst i påloggingsinfo
+* ```Secret Access Key``` - En hemmelighet som ikke må deles. Du må dekryptere denne på samme måte som AWS Passord,
 
-AWS Access Key ID & Secret Key gis i klasserommet. Du må dekryptere ```Secret Access Key``` på samme måte som AWS Passord
-
-### Sjekk ut cloud9 explorer
+### Sjekk ut cloud9 miljøet ditt
 
 Hvis du velger "AWS" ikonet på venstremenyen vil du se "AWS Explorer" velger du ECR vil du finne et ECR Repo med ditt brukernavn,
 men ingen container images. (No tags found)
@@ -61,7 +59,7 @@ Verifiser at spring applikasjonen kjører
 mvn spring-boot:run
 ```
 
-## Dockerize 
+## Dockerize it!
 
 Bruker gjerne denne dockerfilen som eksempel 
 
@@ -77,7 +75,11 @@ COPY --from=builder /app/target/*.jar /app/application.jar
 ENTRYPOINT ["java","-jar","/app/application.jar"]
 ```
 
-Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen kjører som den skal.
+Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen kjører som den skal med 
+
+```shell
+mvn spring-boot:run
+```
 
 ## Amazon ECR
 
