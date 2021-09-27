@@ -17,11 +17,11 @@ Prosjektet skal ha en fungerende Dockerfile som lager container image av java-ap
 
 Instruksjoner om hvordan du får AWS Access Key ID & Secret Key gis i klasserommet.
 
-## Gi  GitHub Actions tilgang til nøkler
+## Gi GitHub Actions tilgang til nøkler
 
 Velg "settings" for ditt repository. Fra venstremenyen velg "secrets
 
-![Alt text](img/2.png  "a title")"
+![Alt text](img/2.png  "a title")
 
 Velg "New Repository secret" og lag følgende hemmeligheter
 
@@ -40,7 +40,15 @@ ${{ secrets.AWS_ACCESS_KEY_ID }}
 ECR (Elastic Container Registry) fyller samme funksjon som Docker Hub, og gir både private og offentlig lagring ac Container 
 images. 
 
+## Ta en kikk på ECR i AWS Console
+
+Logg på AWS console med AWS brukeren din. Eventuelt kan du trykke på "Console" fra Cloud9 miljøet. Gå til tjenesten 
+ECR, og legg merke til at det er laget et ECR repo med ditt brukernavn.
+
 ## Lag en GitHub Actions arbeidsflyt for å bygge & deploye container image til ECR 
+
+lag følgende fil under katalogen ```.github/workflows/``` i ditt repository. NB. Her må du erstatte "glenn" 
+med ditt eget brukernavn
 
 ```yaml
 # This workflow uses actions that are not certified by GitHub.
@@ -65,11 +73,10 @@ jobs:
       - name: Build and push Docker image
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
-          docker build .
-          aws ecr-public create-repository  --repository-name ecr-tutorial --catalog-data file://repositorycatalogdata.json --region eu-north-1 
-
+          docker build . -t glenn
+          docker tag glenn:latest 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn
+          docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn
 ```
-
 
 NB. Dere trenger ikke publisere til GitHub Packages!
 Følg denne guiden <'https://docs.github.com/en/actions/publishing-packages/publishing-docker-images'>
@@ -78,6 +85,5 @@ I denne oppgaven skal vi sørge for at
 
 * Arbeidsflyten skal bare bygge Docker container image på hver push
 * Ved push til master skal også applikasjonen deployes til AWS Apprunner
-
 
 # Lek med Feature toggles 

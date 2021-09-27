@@ -3,6 +3,9 @@ variable "students" {
   default = {
     kaam004 = {
       email = "kaam004@feide.egms.no"
+    },
+    glenn = {
+      email = "glenn.bech@gmail.com"
     }
   }
 }
