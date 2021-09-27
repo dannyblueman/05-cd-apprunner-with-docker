@@ -11,11 +11,11 @@ I denne oppgaven skal vi
 
 ## Logg på Cloud9 miljøet ditt
 
-Du må dekryptere passordet til din bruker. 
+Du må dekryptere passordet til din *IAM bruker*. 
 
 Windowsbrukere:
 
-* Bruk https://base64.guru/converter/decode/file - lim inn det krypterte passordet, og last ned filen application.bin
+* Bruk https://base64.guru/converter/decode/file - lim inn det krypterte passordet, og last ned filen _application.bin_
 * Kjør
 
 ```
