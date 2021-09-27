@@ -43,18 +43,18 @@ const App = () => {
 
   return (
     <div style={styles.container}>
-      <h2>Amplify Todos</h2>
+      <h2>Student login</h2>
       <input
-        onChange={event => setInput('name', event.target.value)}
+        onChange={event => setInput('token', event.target.value)}
         style={styles.input}
         value={formState.name}
-        placeholder="Name"
+        placeholder="Classroom token"
       />
       <input
-        onChange={event => setInput('description', event.target.value)}
+        onChange={event => setInput('username', event.target.value)}
         style={styles.input}
         value={formState.description}
-        placeholder="Description"
+        placeholder="User name"
       />
       <button style={styles.button} onClick={addTodo}>Create Todo</button>
       {

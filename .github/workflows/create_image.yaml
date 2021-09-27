@@ -1,0 +1,20 @@
+name: Publish Docker image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        run: |
+          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 244530008913.dkr.ecr.eu-north-1.amazonaws.com
+          docker build . -t glenn
+          docker tag glenn:latest 244530008913.dkr.ecr.region.amazonaws.com/glenn:latest
+          docker push 244530008913.dkr.ecr.region.amazonaws.com/glenn:latest
