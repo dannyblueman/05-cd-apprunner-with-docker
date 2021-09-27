@@ -13,3 +13,11 @@ output "urls" {
 output "encrypted_passwords" {
   value = { for student in keys(var.students) : student => module.students[student].password }
 }
+
+output "acess_key_ids" {
+  value = { for student in keys(var.students) : student => module.students[student].access_key_id }
+}
+
+output "secret_access_key_ids" {
+  value = { for student in keys(var.students) : student => module.students[student].secret_access_key }
+}

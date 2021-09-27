@@ -8,14 +8,106 @@ I denne oppgaven skal vi
 * Igjen se på AWS Apprunner, men denne gangen lage en applikasjon basert på et Container image i ECR istedet for et GitHub Repo
 * Se at applikasjonen blir deployet av Apprunner når vi pusher ny versjon av Image til ECR
 
+## Logg på Cloud9 miljøet ditt
+
+Du må dekryptere passordet til din bruker. 
+
+Windowsbrukere:
+
+* Bruk https://base64.guru/converter/decode/file - lim inn det krypterte passordet, og last ned filen application.bin
+* Kjør
+
+```
+gpg --decrypt application.bin
+```
+
+Osx
+
+* Osx brukere kan gjøre base64 dekoding og fra kommandolinje. Evt kopier og lim det krypterte passordet inn i en fil
+  ved hjelp av en tekst-editor.
+
+```
+  echo -n `base64 <enkodet kryptert passord>` | base64 --decode > encrypted_password.bin
+  gpg --decrypt encrypted_password.bin
+```
+
+Du vil nå se passordet, for eksempel "9s1Lsd0#". Passordet skal være 8 tegn langt. Ignorer eventuelt % tegn på slutten av linja (som ser ut å komme base på OSX)
+Når du har passordet, går du til Cloud9 url for din bruker.
+
+I denne øvingen trenger vi også IAM aksessnøkler for din bruker. Disse har to attributter
+
+* Acess Key ID - en identifikator for en nøkkel. Ikke hemmelig. Kan deles offentlig
+* Secret Access Key - En hemmelighet som ikke må deles.
+
+AWS Access Key ID & Secret Key gis i klasserommet. Du må dekryptere ```Secret Access Key``` på samme måte som AWS Passord
+
+### Sjekk ut cloud9 explorer
+
+Hvis du velger "AWS" ikonet på venstremenyen vil du se "AWS Explorer" velger du ECR vil du finne et ECR Repo med ditt brukernavn,
+men ingen container images. (No tags found)
+
+![Alt text](img/6.png  "a title")
+
 ## Lag et repo og et Spring Boot "hello verden" prosjekt
 
-Bruk Spring Initializer (https://start.spring.io/)  til å lage et nytt Spring Boot prosjekt, evt ta inspirasjon i dette repoet.
-Prosjektet skal ha en fungerende Dockerfile som lager container image av java-applikasjonen
+På egen PC...
 
-## Få API nøkler til AWS
+Bruk Spring Initializer (https://start.spring.io/)  til å lage et nytt Spring Boot prosjekt, evt ta inspirasjon i dette repoet, 
+eller bruk noe dere har fra før. 
 
-Instruksjoner om hvordan du får AWS Access Key ID & Secret Key gis i klasserommet.
+Verifiser at spring applikasjonen kjører
+
+```shell
+mvn spring-boot:run
+```
+
+## Dockerize 
+
+Bruker gjerne denne dockerfilen som eksempel 
+
+```
+FROM maven:3.6-jdk-11 as builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn package
+
+FROM adoptopenjdk/openjdk11:alpine-slim
+COPY --from=builder /app/target/*.jar /app/application.jar
+ENTRYPOINT ["java","-jar","/app/application.jar"]
+```
+
+Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen kjører som den skal.
+
+## Amazon ECR
+
+I forrige øving lagde vi Docker images og lastet de opp til Docker Hub. Nå skal vi gjøre det samme, men laste opp Container image til 
+AWS ECR slik at vi kan bruke AWS Apprunner til å kjøre en container. 
+
+I en Cloud9 terminal, autentiser du Docker mot ECR. bygger et container image, lager en tag "latest" og pusher denne til 
+Amazon ECR med navnet ```244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest```- Obs. Legg merke til at vi bygget et container image
+med navn "hello" lokalt. Men at vi bygger navn når vi tagger og pusher til ECR.
+
+(her må du bytte ut "glenn" med eget brukernavn)
+```shell
+ aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 244530008913.dkr.ecr.eu-west-1.amazonaws.com
+ docker build . -t hello
+ docker tag hello:latest 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest
+ docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest
+```
+Du skal nå kunne se en "latest" tag under ditt ECR reposiotry i Cloud9 explorer 
+
+![Alt text](img/6.png  "a title")
+
+Legg merke til at vi nå ikke trengte hverken siste versjon av Java eller Maven for å få kompilert Spring Boot applikasjonen vår!!
+Det løses ved at vi lager en egen container med Docker for å kompilere og bygge JAR filen, så kopieres JAR filen over i en annen
+"runtime" container. 
+
+Docker FTW :)
+
+# AWS Apprunner med container 
+
+Vi skal nå kjøre vår container i AWS Apprunner 
 
 ## Gi GitHub Actions tilgang til nøkler
 
@@ -28,22 +120,11 @@ Velg "New Repository secret" og lag følgende hemmeligheter
 * AWS_ACCESS_KEY_ID=The = ```Access Key ID``` 
 * AWS_SECRET_ACCESS_KEY = ```Secret Access Key```
 
-Fra vår GitHub action "workflow" dokument kan vi referere til disse hemmeligehtene på
-følgende syntaks
+Fra vår GitHub action "workflow" dokument kan vi referere til disse hemmeligehtene på  følgende syntaks
 
 ```yaml
 ${{ secrets.AWS_ACCESS_KEY_ID }}
 ```
-
-## Kort om AWS ECR 
-
-ECR (Elastic Container Registry) fyller samme funksjon som Docker Hub, og gir både private og offentlig lagring ac Container 
-images. 
-
-## Ta en kikk på ECR i AWS Console
-
-Logg på AWS console med AWS brukeren din. Eventuelt kan du trykke på "Console" fra Cloud9 miljøet. Gå til tjenesten 
-ECR, og legg merke til at det er laget et ECR repo med ditt brukernavn.
 
 ## Lag en GitHub Actions arbeidsflyt for å bygge & deploye container image til ECR 
 
@@ -81,7 +162,7 @@ jobs:
           docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest
 ```
 
-# Konfigurer AWS Apprunner
+## Konfigurer AWS Apprunner
 
 Nå skal vi konfigurere AWS Apprunner igjen, men bruke "ECR" som kilde og ikke "Source code repository som sist"
 
@@ -90,4 +171,18 @@ Nå skal vi konfigurere AWS Apprunner igjen, men bruke "ECR" som kilde og ikke "
 * Velg "Amazon ECR" som "Repository type"
 * Image name er for eksempel ```244530008913.dkr.ecr.eu-west-1.amazonaws.com/glenn:latest```
 * Velg "automatic deployments"
-* Velg Use existing service role eller "Create new service role" hvis ingen eksisterer
+* Velg Use existing service role.
+
+På de to påfølgende sidene kan dere akseptere default.
+
+* Velg create Service
+
+Verifiser at du kan endre koden, pushe og få ny versjon av applikasjonen i AWS Apprunner!
+
+
+
+
+
+
+
+

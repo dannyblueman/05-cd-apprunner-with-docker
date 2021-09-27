@@ -8,6 +8,11 @@ resource "aws_iam_user_login_profile" "user_login" {
   password_length = 8
 }
 
+resource "aws_iam_access_key" "student" {
+  user    = aws_iam_user.student.name
+  pgp_key = filebase64("classroom_key.pub")
+}
+
 resource "aws_iam_user_policy" "student_policy" {
   name = "test"
   user = aws_iam_user.student.name
