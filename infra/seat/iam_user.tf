@@ -19,6 +19,10 @@ resource "aws_iam_user_policy" "student_policy" {
     {
       "Action": [
         "ecs:*",
+        "apprunner:*",
+        "logs:*",
+        "iam:*",
+        "ecr:*",
         "cloud9:*",
         "ec2:*"
       ],
