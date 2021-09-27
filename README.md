@@ -19,11 +19,7 @@ Instruksjoner om hvordan du får AWS Access Key ID & Secret Key gis i klasseromm
 
 ## Gi  GitHub Actions tilgang til nøkler
 
-Velg "settings" for ditt repository
-
-![Alt text](img/1.png  "a title")
-
-Fra venstremenyen velg "secrets
+Velg "settings" for ditt repository. Fra venstremenyen velg "secrets
 
 ![Alt text](img/2.png  "a title")"
 
