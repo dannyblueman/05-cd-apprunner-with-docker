@@ -116,13 +116,10 @@ Velg tjenesten ECR
 
 ![Alt text](img/8.png "a title")
 
-
-
-
-
 # AWS Apprunner med container 
 
-Vi skal nå kjøre vår container i AWS Apprunner 
+Vi skal nå kjøre vår container i AWS Apprunner, men vi skal la GitHub Actions deploye container images for oss hver gang kildekoden 
+på GitHub endrer seg. 
 
 ## Gi GitHub Actions tilgang til nøkler
 
@@ -192,7 +189,7 @@ På de to påfølgende sidene kan dere akseptere default.
 
 * Velg create Service
 
-Verifiser at du kan endre koden, pushe og få ny versjon av applikasjonen i AWS Apprunner!
+Verifiser at du kan endre koden, pushe og få ny versjon av applikasjonen i AWS Apprunner! 
 
 
 
