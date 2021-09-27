@@ -3,10 +3,11 @@
 I denne oppgaven skal vi 
 
 * Lag en ny Spring Boot applikasjon 
-* Bygge et Docker image for Spring applikasjonen
-* Publisere docker image til ECR, AWS sitt Container registry som fyller samme funksjon som DockerHub. 
+* Bygge et Docker image fra Spring applikasjonen
+* Publisere docker image til ECR, AWS sitt Container registry som fyller samme funksjon som DockerHub fra forrige øving 
 * Igjen se på AWS Apprunner, men denne gangen lage en applikasjon basert på et Container image i ECR istedet for et GitHub Repo
 * Se at applikasjonen blir deployet av Apprunner når vi pusher ny versjon av Image til ECR
+* Bli bedre kjent med Cloud9
 
 ## Logg på Cloud9 miljøet ditt
 
