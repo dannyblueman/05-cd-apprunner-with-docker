@@ -108,6 +108,18 @@ Det løses ved at vi lager en egen container med Docker for å kompilere og bygg
 
 Docker FTW :)
 
+Sjekk også gjerne ut ECR i AWS Console ved å velge "Go to your Dashboard" fra Cloud9 
+
+![Alt text](img/7.png "a title")
+
+Velg tjenesten ECR
+
+![Alt text](img/8.png "a title")
+
+
+
+
+
 # AWS Apprunner med container 
 
 Vi skal nå kjøre vår container i AWS Apprunner 
