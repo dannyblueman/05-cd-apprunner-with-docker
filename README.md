@@ -1,4 +1,4 @@
-# CD med GitHub Actions, AWS Apprunner og Docker.
+# Kontinuerlig deployment med GitHub Actions, AWS Apprunner og Docker.
 
 I denne oppgaven skal vi 
 
