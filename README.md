@@ -112,7 +112,7 @@ Du skal nå kunne se en "latest" tag under ditt ECR reposiotry i Cloud9 explorer
 
 ![Alt text](img/6.png  "a title")
 
-Legg merke til at vi nå ikke trengte hverken siste versjon av Java eller Maven for å få kompilert Spring Boot applikasjonen vår!!
+Legg merke til at vi nå ikke trengte verken siste versjon av Java eller Maven for å få kompilert Spring Boot applikasjonen vår!!
 Det løses ved at vi lager en egen container med Docker for å kompilere og bygge JAR filen, så kopieres JAR filen over i en annen
 "runtime" container. 
 
@@ -126,7 +126,7 @@ Velg tjenesten ECR
 
 ![Alt text](img/8.png "a title")
 
-# AWS Apprunner med container 
+# AWS Apprunner med container  & Deployment med GitHub Actions 
 
 Vi skal nå kjøre vår container i AWS Apprunner, men vi skal la GitHub Actions deploye container images for oss hver gang kildekoden 
 på GitHub endrer seg. 
