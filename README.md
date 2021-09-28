@@ -24,13 +24,14 @@ gpg --decrypt application.bin
 
 Osx
 
-* Osx brukere kan gjøre base64 dekoding og fra kommandolinje. Evt kopier og lim det krypterte passordet inn i en fil
-  ved hjelp av en tekst-editor.
+* Osx brukere kan gjøre base64 dekoding og fra kommandolinje. 
 
 ```
   echo -n `base64 <enkodet kryptert passord>` | base64 --decode > encrypted_password.bin
   gpg --decrypt encrypted_password.bin
 ```
+
+(Windows fremgangsmåten fungerer også!)
 
 Du vil nå se passordet, for eksempel "9s1Lsd0#". Passordet skal være 8 tegn langt. Ignorer eventuelt % tegn på slutten av linja (som ser ut å komme base på OSX)
 Når du har passordet, går du til Cloud9 url for din bruker.
@@ -38,7 +39,9 @@ Når du har passordet, går du til Cloud9 url for din bruker.
 I denne øvingen trenger vi også IAM aksessnøkler for din bruker. Disse har to attributter
 
 * ```Acess Key ID``` - en identifikator for en nøkkel. Denne finner du i klartekst i påloggingsinfo
-* ```Secret Access Key``` - En hemmelighet som ikke må deles. Du må dekryptere denne på samme måte som AWS Passord,
+* ```Secret Access Key``` - En hemmelighet som ikke må deles. 
+
+* Du må dekryptere denne på samme måte som AWS Passord. Noter Access Key ID og dekryptert Secret Access Key til senere.
 
 ### Sjekk ut cloud9 miljøet ditt
 
