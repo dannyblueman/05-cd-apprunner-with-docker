@@ -50,7 +50,6 @@ Logg på Cloud 9 med en URL som typisk ser slik ut (URL er gitt i klasserommet)
 
 Brukernavn er student-navnet ditt feks geto002, passordet er dekryptert IAM passord.
 
-
 Hvis du velger "AWS" ikonet på venstremenyen vil du se "AWS Explorer" velger du ECR vil du finne et ECR Repo med ditt brukernavn,
 men ingen container images. (No tags found)
 
@@ -87,10 +86,6 @@ ENTRYPOINT ["java","-jar","/app/application.jar"]
 ```
 
 Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen starter og lytter på localhost:8080 når du kjører
-
-```shell
-mvn spring-boot:run
-```
 
 ## Lag og last opp Container Image til Amazon ECR fra Cloud9
 
