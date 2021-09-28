@@ -86,6 +86,7 @@ ENTRYPOINT ["java","-jar","/app/application.jar"]
 ```
 
 Du trenger ikke Docker på egen maskin. Bare sørg for at Spring Boot applikasjonen starter og lytter på localhost:8080 når du kjører
+Push applikasjonen og repoet til GitHub brukeren din.
 
 ## Lag og last opp Container Image til Amazon ECR fra Cloud9
 
