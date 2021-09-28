@@ -45,6 +45,10 @@ I denne øvingen trenger vi også IAM aksessnøkler for din bruker. Disse har to
 
 ### Sjekk ut cloud9 miljøet ditt
 
+Logg på Cloud 9 med en URL som typisk ser slik ut (URL er gitt i klasserommet)
+<https://eu-north-1.console.aws.amazon.com/cloud9/ide/738cc6fddc7949bb90f6bb715e8c9441>
+
+
 Hvis du velger "AWS" ikonet på venstremenyen vil du se "AWS Explorer" velger du ECR vil du finne et ECR Repo med ditt brukernavn,
 men ingen container images. (No tags found)
 
